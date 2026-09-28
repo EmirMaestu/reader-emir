@@ -15,7 +15,12 @@
     for (const id of new Set([...Object.keys(L), ...Object.keys(R)])) {
       const l = L[id], r = R[id];
       if (!r) { books[id] = Object.assign({}, l); changedRemote = true; continue; }
-      if (!l) { books[id] = Object.assign({}, r); continue; }
+      if (!l) {
+        books[id] = Object.assign({}, r);
+        if (!r.deleted && r.prog) progFromRemote.push(id);
+        if (!r.deleted && r.marks) marksFromRemote.push(id);
+        continue;
+      }
       const b = Object.assign({}, r, l);
       const deleted = Math.max(l.deleted || 0, r.deleted || 0);
       if (deleted) b.deleted = deleted; else delete b.deleted;

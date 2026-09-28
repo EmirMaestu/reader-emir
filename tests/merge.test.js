@@ -11,6 +11,17 @@ test('libro solo remoto aparece en el resultado', () => {
   assert.strictEqual(r.changedRemote, false);
 });
 
+test('libro solo remoto trae su progreso y marcadores', () => {
+  const r = mergeLibrary(lib(), lib(book('a', { prog: { chapter: 2, frac: 0, at: 9 }, marks: [{ id: 1 }], marksAt: 4 })));
+  assert.deepStrictEqual(r.progFromRemote, ['a']);
+  assert.deepStrictEqual(r.marksFromRemote, ['a']);
+});
+
+test('libro remoto borrado no trae progreso', () => {
+  const r = mergeLibrary(lib(), lib(book('a', { prog: { chapter: 2, frac: 0, at: 9 }, deleted: 10 })));
+  assert.deepStrictEqual(r.progFromRemote, []);
+});
+
 test('libro solo local aparece y marca cambio remoto', () => {
   const r = mergeLibrary(lib(book('a')), lib());
   assert.ok(r.lib.books.a);

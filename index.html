@@ -534,6 +534,8 @@ textarea.input { min-height: 90px; resize: vertical; }
 </style>
   <script src="vendor/ds-bundle.js"></script>
   <script src="vendor/jszip.min.js"></script>
+  <script src="config.js"></script>
+  <script src="sync.js"></script>
   <style>
     html, body { margin: 0; height: 100%; overscroll-behavior: none; }
     body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; }
@@ -566,12 +568,25 @@ textarea.input { min-height: 90px; resize: vertical; }
           <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 4px;">Tu biblioteca</div>
           <h1 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(38px, 7vw, 56px); line-height: 1; margin: 0;">Hoja</h1>
         </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-secondary" sc-camel-on-click="{{ onSyncClick }}" title="{{ syncTitle }}" style="border-radius: 999px; min-height: 48px; padding: 0 18px; font-size: 14px; gap: 8px;">
+          <span style="width: 9px; height: 9px; border-radius: 50%; flex: none; background: {{ syncDot }};"></span>
+          {{ syncLabel }}
+        </button>
         <button class="btn btn-primary" sc-camel-on-click="{{ pickFiles }}" style="border-radius: 999px; min-height: 48px; padding: 0 22px; font-size: 15px; gap: 8px;">
           <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
           Importar EPUB
         </button>
+        </div>
         <input type="file" accept=".epub,application/epub+zip" multiple="" sc-camel-on-change="{{ onFiles }}" ref="{{ fileRef }}" style="display: none;">
       </header>
+
+      <sc-if value="{{ hasDownloading }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 999px; background: var(--color-accent-2-200); color: var(--color-accent-2-900); margin-bottom: 20px; font-size: 14px; width: fit-content;">
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--color-accent-2-700); border-top-color: transparent; animation: hoja-spin 0.8s linear infinite;"></span>
+          Descargando de Drive: {{ downloading }}
+        </div>
+      </sc-if>
 
       <sc-if value="{{ importing }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 999px; background: var(--color-accent-2-200); color: var(--color-accent-2-900); margin-bottom: 20px; font-size: 14px; width: fit-content;">
@@ -845,12 +860,14 @@ class Component extends DCLogic {
     book: null, chapterIdx: 0, html: '', loading: false, chrome: true, panel: null,
     settings: Object.assign({}, DEFAULTS, ls('settings') || {}),
     marks: [], query: '', results: [], searchStatus: '', page: 1, pages: 1, frac: 0, vw: 0,
+    syncStatus: 'off', syncAt: 0, syncError: '', downloading: '',
   };
   scrollRef = React.createRef(); fileRef = React.createRef(); contentRef = React.createRef();
   coverUrls = {}; blobCache = new Map(); chapters = []; toc = []; zip = null; pending = null; frac = 0; touch = null;
 
   componentDidMount() {
     this.loadBooks();
+    this.initSync();
     this.onResize = () => { const el = this.scrollRef.current; if (el) { this.pending = this.pending || { frac: this.frac }; this.setState({ vw: el.clientWidth }); } };
     window.addEventListener('resize', this.onResize);
     this.onKey = (e) => {
@@ -862,7 +879,7 @@ class Component extends DCLogic {
     };
     window.addEventListener('keydown', this.onKey);
   }
-  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('keydown', this.onKey); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('keydown', this.onKey); this.stopSync(); }
 
   componentDidUpdate() {
     // El runtime solo pasa prevProps: el estado anterior lo guardamos nosotros.
@@ -898,6 +915,138 @@ class Component extends DCLogic {
       books.forEach(b => { if (b.cover && !this.coverUrls[b.id]) this.coverUrls[b.id] = URL.createObjectURL(b.cover); });
       this.setState({ books });
     } catch (e) { this.setState({ error: 'No se pudo abrir el almacenamiento local.' }); }
+  }
+
+  // ── sincronización (Google Drive) ──
+  initSync(tries = 0) {
+    // El runtime carga los <script> del <helmet> en paralelo: sync.js puede llegar después del montaje.
+    const S = window.HojaSync; if (!S) { if (tries < 100) this.initT = setTimeout(() => this.initSync(tries + 1), 100); return; }
+    if (!S.Auth.configured()) return this.setState({ syncStatus: 'unconfigured' });
+    S.Auth.preload();
+    this.setState({ syncStatus: S.Auth.connected() ? 'idle' : 'off' });
+    this.onVis = () => {
+      if (document.visibilityState === 'visible') return this.syncSoon(0);
+      if (this.state.book) this.saveProgress();
+      this.syncSoon(0);
+    };
+    this.onOnline = () => this.syncSoon(0);
+    // Con el token vencido, Google exige un gesto del usuario para renovarlo: lo hacemos en el primer toque.
+    this.onGesture = () => {
+      if (!S.Auth.connected() || S.Auth.token() || !S.Auth.ready() || this.refreshing || this.autoRefreshOff) return;
+      this.refreshing = true;
+      S.Auth.request('').then(() => this.syncSoon(0))
+        .catch(() => { this.autoRefreshOff = true; this.setState({ syncStatus: 'reauth' }); })
+        .finally(() => { this.refreshing = false; });
+    };
+    document.addEventListener('visibilitychange', this.onVis);
+    window.addEventListener('online', this.onOnline);
+    document.addEventListener('click', this.onGesture, true);
+    this.syncIv = setInterval(() => { if (document.visibilityState === 'visible') this.syncSoon(0); }, 120000);
+    this.syncSoon(0);
+  }
+  stopSync() {
+    clearTimeout(this.initT); clearTimeout(this.syncT); clearInterval(this.syncIv);
+    if (this.onVis) document.removeEventListener('visibilitychange', this.onVis);
+    if (this.onOnline) window.removeEventListener('online', this.onOnline);
+    if (this.onGesture) document.removeEventListener('click', this.onGesture, true);
+  }
+  onSyncClick = () => {
+    const S = window.HojaSync;
+    if (!S || !S.Auth.configured()) return this.setState({ error: 'Para sincronizar falta poner tu Google Client ID en config.js (ver README).' });
+    if (this.refreshing) return; // el toque ya está renovando la sesión (onGesture)
+    this.autoRefreshOff = false;
+    if (S.Auth.token()) return this.syncSoon(0);
+    this.refreshing = true;
+    S.Auth.connect().then(() => { this.setState({ syncStatus: 'idle', syncError: '' }); this.syncSoon(0); })
+      .catch((e) => this.setState({ syncStatus: S.Auth.connected() ? 'reauth' : 'off', syncError: e.message }))
+      .finally(() => { this.refreshing = false; });
+  };
+  syncSoon(ms) { if (!window.HojaSync) return; clearTimeout(this.syncT); this.syncT = setTimeout(() => this.sync(), ms); }
+
+  async sync() {
+    const S = window.HojaSync;
+    if (!S || !S.Auth.configured() || !S.Auth.connected()) return;
+    if (!S.Auth.token()) return this.setState({ syncStatus: 'reauth' });
+    if (!navigator.onLine) return this.setState({ syncStatus: 'offline' });
+    if (this.syncing) { this.syncAgain = true; return; }
+    this.syncing = true; this.setState({ syncStatus: 'busy' });
+    try {
+      await this.syncOnce(S);
+      this.setState({ syncStatus: 'idle', syncAt: Date.now(), syncError: '' });
+    } catch (e) {
+      console.error(e);
+      if (e instanceof S.AuthError) this.setState({ syncStatus: 'reauth' });
+      else this.setState({ syncStatus: 'error', syncError: e.message });
+    } finally {
+      this.syncing = false;
+      if (this.state.downloading) this.setState({ downloading: '' });
+      if (this.syncAgain) { this.syncAgain = false; this.syncSoon(1000); }
+    }
+  }
+
+  libEntry(b) {
+    const e = { id: b.id, title: b.title, author: b.author, added: b.added, spineCount: b.spineCount };
+    const prog = ls('prog:' + b.id), marks = ls('marks:' + b.id);
+    if (prog) e.prog = prog;
+    if (marks) { e.marks = marks; e.marksAt = ls('marksAt:' + b.id) || Math.max(0, ...marks.map(m => m.at || 0)); }
+    return e;
+  }
+  forgetLocal(id) { ['prog:', 'marks:', 'marksAt:'].forEach(k => { try { localStorage.removeItem(KEY + k + id); } catch (e) {} }); }
+
+  async syncOnce(S) {
+    const drive = S.drive;
+    const byName = {}; (await drive.list()).forEach(f => { byName[f.name] = f; });
+    const libFile = byName['library.json'];
+    const remote = libFile ? JSON.parse(await drive.getText(libFile.id)) : { books: {} };
+    const localBooks = await this.dbAll();
+    const local = { books: {} };
+    localBooks.forEach(b => { local.books[b.id] = this.libEntry(b); });
+    Object.entries(ls('tomb') || {}).forEach(([id, at]) => { local.books[id] = { id, deleted: at }; });
+
+    const { lib, progFromRemote, marksFromRemote, changedRemote } = S.mergeLibrary(local, remote);
+    const isOpen = (id) => this.state.view === 'reader' && this.state.book && this.state.book.id === id;
+
+    for (const b of Object.values(lib.books)) {
+      const f = byName['book-' + b.id + '.epub'];
+      const have = localBooks.find(x => x.id === b.id);
+      if (b.deleted) {
+        if (have) { if (isOpen(b.id)) this.closeBook(); await this.dbDel(b.id); }
+        this.forgetLocal(b.id);
+        if (f) await drive.remove(f.id);
+        continue;
+      }
+      if (!have && f) {
+        this.setState({ downloading: '«' + b.title + '»' });
+        await this.importBlob(await drive.getBlob(f.id), b);
+      } else if (have && !f) {
+        await drive.upload('book-' + b.id + '.epub', have.file);
+      }
+    }
+
+    for (const id of progFromRemote) {
+      const p = lib.books[id].prog, cur = ls('prog:' + id);
+      if (cur && cur.at >= p.at) continue; // se leyó aquí mientras sincronizábamos
+      ls('prog:' + id, p);
+      if (isOpen(id)) this.goTo(Math.min(p.chapter, this.chapters.length - 1), { frac: p.frac || 0 });
+    }
+    for (const id of marksFromRemote) {
+      const b = lib.books[id];
+      if ((ls('marksAt:' + id) || 0) >= b.marksAt) continue;
+      ls('marks:' + id, b.marks); ls('marksAt:' + id, b.marksAt);
+      if (isOpen(id)) this.setState({ marks: b.marks });
+    }
+
+    if (changedRemote || !libFile) await drive.upload('library.json', new Blob([JSON.stringify(lib)], { type: 'application/json' }), libFile && libFile.id);
+    if (this.state.view === 'library') await this.loadBooks();
+  }
+
+  async importBlob(blob, b) {
+    const zip = await JSZip.loadAsync(blob);
+    const meta = await this.parseOpf(zip);
+    let cover = null;
+    if (meta.cover && zip.file(meta.cover)) cover = await zip.file(meta.cover).async('blob');
+    const file = new File([blob], (b.title || 'libro') + '.epub', { type: 'application/epub+zip' });
+    await this.dbPut({ id: b.id, title: b.title || meta.title, author: b.author || meta.author || 'Autor desconocido', cover, file, spineCount: b.spineCount || meta.spine.length, added: b.added || Date.now() });
   }
 
   // ── EPUB parsing ──
@@ -961,12 +1110,16 @@ class Component extends DCLogic {
     }
     this.setState({ importing: false });
     this.loadBooks();
+    this.syncSoon(0);
   }
 
   removeBook = async (b, e) => {
     e.stopPropagation();
     if (!confirm('¿Eliminar "' + b.title + '" de la biblioteca?')) return;
-    await this.dbDel(b.id); this.loadBooks();
+    await this.dbDel(b.id);
+    const tomb = ls('tomb') || {}; tomb[b.id] = Date.now(); ls('tomb', tomb);
+    this.forgetLocal(b.id);
+    this.loadBooks(); this.syncSoon(0);
   };
 
   // ── open / render ──
@@ -1078,7 +1231,17 @@ class Component extends DCLogic {
     }
     clearTimeout(this.saveT); this.saveT = setTimeout(this.saveProgress, 400);
   };
-  saveProgress = () => { const b = this.state.book; if (!b) return; ls('prog:' + b.id, { chapter: this.state.chapterIdx, frac: this.frac, at: Date.now() }); };
+  saveProgress = () => {
+    const b = this.state.book; if (!b) return;
+    const cur = ls('prog:' + b.id), sc = this.scrollRef.current;
+    if (cur && cur.chapter === this.state.chapterIdx) {
+      const pages = sc && this.state.settings.mode === 'paged' ? Math.max(1, Math.round(sc.scrollWidth / (sc.clientWidth || 1))) : 1;
+      const same = pages > 1 ? Math.round(cur.frac * (pages - 1)) === Math.round(this.frac * (pages - 1)) : Math.abs(cur.frac - this.frac) < 0.005;
+      if (same) return;
+    }
+    ls('prog:' + b.id, { chapter: this.state.chapterIdx, frac: this.frac, at: Date.now() });
+    this.syncSoon(5000);
+  };
 
   turn(dir) {
     const sc = this.scrollRef.current; if (!sc) return;
@@ -1140,9 +1303,9 @@ class Component extends DCLogic {
     let marks;
     if (existing) marks = this.state.marks.filter(m => m !== existing);
     else marks = [{ id: Date.now(), chapter: this.state.chapterIdx, frac: this.frac, page: this.state.page, pages: this.state.pages, title: this.chapterTitle(this.state.chapterIdx), note: '', at: Date.now() }, ...this.state.marks];
-    ls('marks:' + b.id, marks); this.setState({ marks });
+    this.updateMarks(marks);
   };
-  updateMarks(marks) { ls('marks:' + this.state.book.id, marks); this.setState({ marks }); }
+  updateMarks(marks) { const id = this.state.book.id; ls('marks:' + id, marks); ls('marksAt:' + id, Date.now()); this.setState({ marks }); this.syncSoon(3000); }
 
   chapterTitle(idx) { const t = this.toc.find(t => t.idx === idx); if (t) return t.label; const prev = [...this.toc].reverse().find(t => t.idx < idx); return prev ? prev.label : 'Sección ' + (idx + 1); }
 
@@ -1181,7 +1344,12 @@ class Component extends DCLogic {
     if (this._htmlMemo !== s.html) { this._htmlMemo = s.html; this._contentEl = React.createElement('div', { key: 'c' + s.chapterIdx, ref: this.contentRef, dangerouslySetInnerHTML: { __html: s.html } }); }
     const contentEl = this._contentEl;
     return {
-      inLibrary: !inReader, inReader, books, hasBooks: books.length > 0, isEmpty: !s.importing && books.length === 0,
+      inLibrary: !inReader, inReader, books, hasBooks: books.length > 0, isEmpty: !s.importing && !s.downloading && books.length === 0,
+      onSyncClick: this.onSyncClick, hasDownloading: !!s.downloading, downloading: s.downloading,
+      syncLabel: { unconfigured: 'Sincronizar', off: 'Conectar Google Drive', busy: 'Sincronizando…', reauth: 'Toca para reconectar', offline: 'Sin conexión', error: 'Error · reintentar' }[s.syncStatus]
+        || (s.syncAt ? 'Sincronizado ' + new Date(s.syncAt).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' }) : 'Drive conectado'),
+      syncDot: { idle: 'var(--color-accent-2-600)', busy: 'var(--color-accent-2-400)', error: 'var(--color-accent)', reauth: 'var(--color-accent)' }[s.syncStatus] || 'var(--color-neutral-400)',
+      syncTitle: s.syncError || (s.syncStatus === 'idle' ? 'Libros y progreso guardados en tu Google Drive' : ''),
       countLabel: books.length === 1 ? '1 libro' : books.length + ' libros',
       importing: s.importing, importLabel: s.importLabel, hasError: !!s.error, error: s.error,
       hasLast: !!lastRaw && !inReader, last, pickFiles: this.pickFiles, loadSample: this.loadSample, onFiles: this.onFiles, fileRef: this.fileRef,
