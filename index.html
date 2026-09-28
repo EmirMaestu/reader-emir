@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>Hoja · Lector EPUB</title>
+<meta name="theme-color" content="#f5ead8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources = {"https://unpkg.com/react@18.3.1/umd/react.production.min.js": "vendor/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "vendor/react-dom.production.min.js"};</script>
+<script src="vendor/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>/* Organic — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+/* latin-ext */
+@font-face {
+  font-family: 'Caprasimo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/4dc1ec8d-f548-456a-8fc6-e9dbcf11fa96.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Caprasimo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/11752045-6fea-4410-929f-0c250f247892.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/02903039-f6cf-411f-880e-ae364782739a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/209a366e-5f8a-4d50-87eb-e72fa10a6192.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/02903039-f6cf-411f-880e-ae364782739a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/209a366e-5f8a-4d50-87eb-e72fa10a6192.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/02903039-f6cf-411f-880e-ae364782739a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/209a366e-5f8a-4d50-87eb-e72fa10a6192.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+:root {
+  --color-bg: #f5ead8;
+  --color-surface: #ebddc5;
+  --color-text: #201e1d;
+  --color-accent: #c67139;
+  --color-accent-2: #7a8a5e;
+  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f9f4ed;
+  --color-neutral-200: #eee7db;
+  --color-neutral-300: #dcd3c4;
+  --color-neutral-400: #c0b6a5;
+  --color-neutral-500: #a19786;
+  --color-neutral-600: #82796a;
+  --color-neutral-700: #645c50;
+  --color-neutral-800: #474238;
+  --color-neutral-900: #2e2b25;
+
+  --color-accent-100: #fff2eb;
+  --color-accent-200: #ffe1d0;
+  --color-accent-300: #ffc6a5;
+  --color-accent-400: #f6a06b;
+  --color-accent-500: #d67f48;
+  --color-accent-600: #b2622d;
+  --color-accent-700: #8c491a;
+  --color-accent-800: #643312;
+  --color-accent-900: #402310;
+
+  --color-accent-2-100: #f0fae1;
+  --color-accent-2-200: #e1eecc;
+  --color-accent-2-300: #ccdbb2;
+  --color-accent-2-400: #aebf92;
+  --color-accent-2-500: #8fa073;
+  --color-accent-2-600: #728157;
+  --color-accent-2-700: #56633f;
+  --color-accent-2-800: #3d472b;
+  --color-accent-2-900: #272e1b;
+
+  --font-heading: "Caprasimo", system-ui, sans-serif;
+  --font-heading-weight: 400;
+  --font-body: "Figtree", system-ui, sans-serif;
+
+  --space-1: 4.4px;
+  --space-2: 8.8px;
+  --space-3: 13.2px;
+  --space-4: 17.6px;
+  --space-6: 26.4px;
+  --space-8: 35.2px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.washed{filter:saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 1px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: none;
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+/* — rounded frame: everything softens, small controls go pill — */
+.card, .dialog { border-radius: calc(var(--radius-lg) * 1.15); }
+.btn, .tag, .seg, .input { border-radius: 999px; }
+.input { padding-inline: 14px; }
+
+</style>
+  <style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/570348b5-b27c-4ba0-83c1-61f165e3870b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/19d6da7e-54b7-444d-b634-877c8e5c3714.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/9d3976ad-a7f1-4d4f-84ce-1ed4eb5788aa.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/881a3054-a1bb-42ea-bc22-b76f975e352c.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/b66b1848-b468-46de-ba2a-ca674c096b42.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/1971e922-e743-4808-80be-3e0d9de6081a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/14115c64-9d5c-49f1-9e36-1968c465fed2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/a52d1db9-8507-4f04-bb01-3a48341defd9.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/893e1a91-39e9-41fc-ae6f-f486408b1fc6.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/3a6a700d-3fa1-4e3d-a7b0-6c5731328386.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/2e3d89a7-26a3-437d-91bf-d65a588409ae.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/8715698f-afe8-4f55-b13e-6bbf258ff8a8.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/e1e78a76-65a5-4ea9-bf27-850d2f366b55.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/13c5c974-25de-4815-9eed-0ea4ad631414.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/a52d1db9-8507-4f04-bb01-3a48341defd9.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/893e1a91-39e9-41fc-ae6f-f486408b1fc6.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/3a6a700d-3fa1-4e3d-a7b0-6c5731328386.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/2e3d89a7-26a3-437d-91bf-d65a588409ae.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/8715698f-afe8-4f55-b13e-6bbf258ff8a8.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/e1e78a76-65a5-4ea9-bf27-850d2f366b55.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Literata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/13c5c974-25de-4815-9eed-0ea4ad631414.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <script src="vendor/ds-bundle.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <style>
+    html, body { margin: 0; height: 100%; overscroll-behavior: none; }
+    body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; }
+    a { color: var(--color-accent-700); } a:hover { color: var(--color-accent-800); }
+    input[type=range] { accent-color: var(--color-accent); width: 100%; height: 44px; margin: 0; cursor: pointer; }
+    button { -webkit-appearance: none; appearance: none; }
+    @keyframes hoja-spin { to { transform: rotate(360deg); } }
+    @keyframes hoja-rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+    /* Chapter markup comes from the EPUB itself, so it can only be styled by rule */
+    .epub-content * { color: inherit !important; font-family: inherit !important; line-height: inherit !important; text-align: inherit; background: transparent !important; max-width: 100%; }
+    .epub-content p, .epub-content div, .epub-content li, .epub-content blockquote { font-size: 1em !important; }
+    .epub-content h1, .epub-content h2, .epub-content h3, .epub-content h4 { font-family: inherit !important; line-height: 1.25 !important; margin: 1.2em 0 0.6em; text-align: left; }
+    .epub-content h1 { font-size: 1.7em !important; } .epub-content h2 { font-size: 1.45em !important; } .epub-content h3 { font-size: 1.2em !important; } .epub-content h4, .epub-content h5, .epub-content h6 { font-size: 1.05em !important; }
+    .epub-content p { margin: 0 0 0.85em; text-indent: 0; }
+    .epub-content img, .epub-content svg, .epub-content image { max-width: 100% !important; max-height: 80vh; height: auto !important; margin: 0.6em auto; display: block; border-radius: 12px; }
+    .epub-content a { text-decoration: underline; text-underline-offset: 3px; color: inherit !important; cursor: pointer; }
+    .epub-content mark { background: var(--color-accent-300) !important; color: var(--color-accent-900) !important; border-radius: 4px; padding: 0 2px; }
+    .epub-content table { border-collapse: collapse; font-size: 0.9em; } .epub-content td, .epub-content th { padding: 4px 8px; border-bottom: 1px solid currentColor; }
+    .epub-content pre { white-space: pre-wrap; }
+    .epub-content hr { border: 0; height: 1px; background: currentColor; opacity: 0.2; margin: 1.5em 0; }
+  </style>
+</helmet>
+
+<div style="min-height: 100dvh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);">
+
+  <sc-if value="{{ inLibrary }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width: 1120px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 20px 64px;">
+      <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;">
+        <div>
+          <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 4px;">Tu biblioteca</div>
+          <h1 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(38px, 7vw, 56px); line-height: 1; margin: 0;">Hoja</h1>
+        </div>
+        <button class="btn btn-primary" sc-camel-on-click="{{ pickFiles }}" style="border-radius: 999px; min-height: 48px; padding: 0 22px; font-size: 15px; gap: 8px;">
+          <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+          Importar EPUB
+        </button>
+        <input type="file" accept=".epub,application/epub+zip" multiple="" sc-camel-on-change="{{ onFiles }}" ref="{{ fileRef }}" style="display: none;">
+      </header>
+
+      <sc-if value="{{ importing }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 999px; background: var(--color-accent-2-200); color: var(--color-accent-2-900); margin-bottom: 20px; font-size: 14px; width: fit-content;">
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--color-accent-2-700); border-top-color: transparent; animation: hoja-spin 0.8s linear infinite;"></span>
+          Importando {{ importLabel }}
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 14px 18px; border-radius: 16px; background: var(--color-accent-200); color: var(--color-accent-900); margin-bottom: 20px; font-size: 14px;">{{ error }}</div>
+      </sc-if>
+
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; place-items: center; text-align: center; padding: 48px 16px 24px; gap: 12px;">
+          <div style="width: 200px; height: 200px; border-radius: 48% 52% 46% 54% / 55% 45% 55% 45%; background: var(--color-surface); display: grid; place-items: center; color: var(--color-accent); margin-bottom: 8px;">
+            <svg width="72" height="72" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: 30px; margin: 0;">Aún no hay libros</h2>
+          <p style="max-width: 360px; margin: 0; color: var(--color-neutral-700); font-size: 15px; text-wrap: pretty;">Importa un archivo .epub desde tu celular o tu PC. Se guarda en este navegador y tu progreso se recuerda solo.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px;">
+            <button class="btn btn-secondary" sc-camel-on-click="{{ pickFiles }}" style="border-radius: 999px; min-height: 48px; padding: 0 22px;">Elegir archivo</button>
+            <button class="btn btn-ghost" sc-camel-on-click="{{ loadSample }}" style="border-radius: 999px; min-height: 48px; padding: 0 18px;">Probar con un libro de muestra</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasLast }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-bottom: 36px;">
+          <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 12px;">Seguir leyendo</div>
+          <div sc-camel-on-click="{{ last.open }}" style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center; padding: 16px; border-radius: 28px; background: var(--color-surface); cursor: pointer; max-width: 560px; box-shadow: var(--shadow-sm);" style-hover="box-shadow: var(--shadow-md);">
+            <div style="width: 96px; aspect-ratio: 2 / 3; border-radius: 16px; overflow: hidden; background: var(--color-accent-2-300); display: grid; place-items: center; font-family: var(--font-heading); font-size: 36px; color: var(--color-accent-2-900);">
+              <sc-if value="{{ last.hasCover }}" hint-placeholder-val="{{ false }}"><div class="washed" style="width: 100%; height: 100%; background-size: cover; background-position: center; background-image: {{ last.coverCss }};"></div></sc-if>
+              <sc-if value="{{ last.noCover }}" hint-placeholder-val="{{ true }}">{{ last.initial }}</sc-if>
+            </div>
+            <div style="min-width: 0;">
+              <div style="font-family: var(--font-heading); font-size: 22px; line-height: 1.15; margin-bottom: 4px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ last.title }}</div>
+              <div style="font-size: 14px; color: var(--color-neutral-700); margin-bottom: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ last.author }}</div>
+              <div style="height: 6px; border-radius: 999px; background: var(--color-neutral-300); overflow: hidden;"><div style="height: 100%; width: {{ last.pctW }}; background: var(--color-accent-2); border-radius: 999px;"></div></div>
+              <div style="font-size: 12px; color: var(--color-neutral-600); margin-top: 6px;">{{ last.pctLabel }}</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasBooks }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 12px;">{{ countLabel }}</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px 16px;">
+          <sc-for list="{{ books }}" as="b" hint-placeholder-count="4">
+            <div style="position: relative; display: flex; flex-direction: column; gap: 10px; cursor: pointer;" sc-camel-on-click="{{ b.open }}">
+              <div style="aspect-ratio: 2 / 3; border-radius: 20px; overflow: hidden; background: var(--color-surface); display: grid; place-items: center; font-family: var(--font-heading); font-size: 44px; color: var(--color-accent); box-shadow: var(--shadow-sm);">
+                <sc-if value="{{ b.hasCover }}" hint-placeholder-val="{{ false }}"><div class="washed" style="width: 100%; height: 100%; background-size: cover; background-position: center; background-image: {{ b.coverCss }};"></div></sc-if>
+                <sc-if value="{{ b.noCover }}" hint-placeholder-val="{{ true }}">{{ b.initial }}</sc-if>
+              </div>
+              <div style="height: 4px; border-radius: 999px; background: var(--color-neutral-300); overflow: hidden;"><div style="height: 100%; width: {{ b.pctW }}; background: var(--color-accent-2); border-radius: 999px;"></div></div>
+              <div style="min-width: 0;">
+                <div style="font-weight: 600; font-size: 14px; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ b.title }}</div>
+                <div style="font-size: 12px; color: var(--color-neutral-600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ b.author }}</div>
+              </div>
+              <button aria-label="Eliminar" sc-camel-on-click="{{ b.remove }}" style="position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--color-bg) 85%, transparent); color: var(--color-accent-800); display: grid; place-items: center; cursor: pointer;" style-hover="background: var(--color-accent-200);">
+                <svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>
+              </button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ inReader }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; background: {{ rBg }}; color: {{ rFg }}; overflow: hidden;">
+
+      <div ref="{{ scrollRef }}" sc-camel-on-scroll="{{ onScroll }}" sc-camel-on-click="{{ onContentClick }}" sc-camel-on-touch-start="{{ onTouchStart }}" sc-camel-on-touch-end="{{ onTouchEnd }}" style="position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: {{ colMax }}; overflow-x: hidden; overflow-y: {{ oy }}; -webkit-overflow-scrolling: touch;">
+        <div style="{{ innerStyle }}">
+          <div class="epub-content" style="font-size: {{ fontPx }}; font-family: {{ fontCss }}; line-height: {{ lineH }}; text-align: {{ align }}; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word;">{{ contentEl }}</div>
+          <sc-if value="{{ showNextBtn }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; justify-content: center; padding: 32px 0 8px;">
+              <button sc-camel-on-click="{{ nextChapter }}" style="min-height: 48px; padding: 0 24px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, {{ rFg }} 25%, transparent); background: transparent; color: inherit; font-family: var(--font-heading); font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">Siguiente capítulo <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; display: grid; place-items: center; background: {{ rBg }}; z-index: 5;">
+          <span style="width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--color-accent); border-top-color: transparent; animation: hoja-spin 0.8s linear infinite;"></span>
+        </div>
+      </sc-if>
+
+      <div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 11px; letter-spacing: 0.04em; opacity: 0.55; pointer-events: none;">{{ pageLabel }}</div>
+
+      <div style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: 8px; padding: max(8px, env(safe-area-inset-top)) 10px 8px; background: color-mix(in srgb, {{ rSurface }} 92%, transparent); backdrop-filter: blur(10px); transform: {{ topT }}; transition: transform 0.25s ease;">
+        <button aria-label="Biblioteca" sc-camel-on-click="{{ closeBook }}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; flex: none;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+          <svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+        </button>
+        <div style="min-width: 0; flex: 1;">
+          <div style="font-family: var(--font-heading); font-size: 15px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ bookTitle }}</div>
+          <div style="font-size: 12px; opacity: 0.65; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chapterTitle }}</div>
+        </div>
+        <button aria-label="Añadir marcador" sc-camel-on-click="{{ addBookmark }}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: {{ markColor }}; display: grid; place-items: center; cursor: pointer; flex: none;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+          <svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="{{ markFill }}" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
+        </button>
+      </div>
+
+      <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 10; padding: 4px 12px max(10px, env(safe-area-inset-bottom)); background: color-mix(in srgb, {{ rSurface }} 92%, transparent); backdrop-filter: blur(10px); transform: {{ botT }}; transition: transform 0.25s ease;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button aria-label="Anterior" sc-camel-on-click="{{ prevPage }}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; flex: none;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+          <input type="range" min="0" max="1000" value="{{ progressVal }}" sc-camel-on-change="{{ onSeek }}" aria-label="Progreso del libro">
+          <button aria-label="Siguiente" sc-camel-on-click="{{ nextPage }}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; flex: none;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; max-width: 480px; margin: 0 auto;">
+          <button sc-camel-on-click="{{ openToc }}" style="min-height: 48px; border-radius: 16px; border: 0; background: transparent; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; cursor: pointer; font-family: inherit;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+            <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"></line><line x1="8" x2="21" y1="12" y2="12"></line><line x1="8" x2="21" y1="18" y2="18"></line><line x1="3" x2="3.01" y1="6" y2="6"></line><line x1="3" x2="3.01" y1="12" y2="12"></line><line x1="3" x2="3.01" y1="18" y2="18"></line></svg>Índice
+          </button>
+          <button sc-camel-on-click="{{ openMarks }}" style="min-height: 48px; border-radius: 16px; border: 0; background: transparent; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; cursor: pointer; font-family: inherit;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+            <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>Marcadores
+          </button>
+          <button sc-camel-on-click="{{ openSearch }}" style="min-height: 48px; border-radius: 16px; border: 0; background: transparent; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; cursor: pointer; font-family: inherit;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+            <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Buscar
+          </button>
+          <button sc-camel-on-click="{{ openSettings }}" style="min-height: 48px; border-radius: 16px; border: 0; background: transparent; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; cursor: pointer; font-family: inherit;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);">
+            <span style="font-family: var(--font-heading); font-size: 19px; line-height: 20px;">Aa</span>Ajustes
+          </button>
+        </div>
+      </div>
+
+      <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+        <div sc-camel-on-click="{{ closePanel }}" style="position: absolute; inset: 0; z-index: 20; background: rgba(32, 30, 29, 0.35);"></div>
+        <div style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; max-width: 640px; max-height: 82%; z-index: 21; display: flex; flex-direction: column; border-radius: 28px 28px 0 0; background: {{ rSurface }}; color: {{ rFg }}; box-shadow: var(--shadow-lg); animation: hoja-rise 0.25s ease;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 12px 6px 22px; flex: none;">
+            <div style="font-family: var(--font-heading); font-size: 22px;">{{ panelTitle }}</div>
+            <button aria-label="Cerrar" sc-camel-on-click="{{ closePanel }}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+          </div>
+          <div style="overflow-y: auto; padding: 4px 22px max(24px, env(safe-area-inset-bottom));">
+
+            <sc-if value="{{ panelSettings }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-direction: column; gap: 22px;">
+                <div>
+                  <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px;">Tema</div>
+                  <div style="display: flex; gap: 12px;">
+                    <sc-for list="{{ themeOpts }}" as="t" hint-placeholder-count="3">
+                      <button sc-camel-on-click="{{ t.on }}" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px 0 8px; border-radius: 999px; border: 2px solid {{ t.border }}; background: {{ t.bg }}; color: {{ t.fg }}; cursor: pointer; font-family: inherit; font-size: 14px;">
+                        <span style="width: 30px; height: 30px; border-radius: 50%; background: {{ t.fg }}; opacity: 0.85;"></span>{{ t.label }}
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px;">Fuente</div>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <sc-for list="{{ fontOpts }}" as="f" hint-placeholder-count="4">
+                      <button sc-camel-on-click="{{ f.on }}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid {{ f.border }}; background: {{ f.bg }}; color: {{ f.fg }}; cursor: pointer; font-family: {{ f.css }}; font-size: 15px;">{{ f.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 24px;">
+                  <sc-for list="{{ steppers }}" as="s" hint-placeholder-count="4">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                      <div style="font-size: 14px;">{{ s.label }}</div>
+                      <div style="display: flex; align-items: center; gap: 4px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, currentColor 22%, transparent);">
+                        <button aria-label="Menos" sc-camel-on-click="{{ s.dec }}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+                        <div style="min-width: 44px; text-align: center; font-family: var(--font-heading); font-size: 15px;">{{ s.value }}</div>
+                        <button aria-label="Más" sc-camel-on-click="{{ s.inc }}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 24px;">
+                  <div>
+                    <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px;">Alineación</div>
+                    <div style="display: flex; gap: 8px;">
+                      <sc-for list="{{ alignOpts }}" as="o" hint-placeholder-count="2">
+                        <button sc-camel-on-click="{{ o.on }}" style="flex: 1; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{ o.border }}; background: {{ o.bg }}; color: {{ o.fg }}; cursor: pointer; font-family: inherit; font-size: 14px;">{{ o.label }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px;">Modo de lectura</div>
+                    <div style="display: flex; gap: 8px;">
+                      <sc-for list="{{ modeOpts }}" as="o" hint-placeholder-count="2">
+                        <button sc-camel-on-click="{{ o.on }}" style="flex: 1; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{ o.border }}; background: {{ o.bg }}; color: {{ o.fg }}; cursor: pointer; font-family: inherit; font-size: 14px;">{{ o.label }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px;"><span>Brillo</span><span>{{ brightLabel }}</span></div>
+                  <input type="range" min="30" max="100" value="{{ brightness }}" sc-camel-on-change="{{ onBright }}" aria-label="Brillo">
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ panelToc }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ tocEmpty }}" hint-placeholder-val="{{ false }}"><div style="opacity: 0.6; font-size: 14px; padding: 8px 0 16px;">Este libro no trae índice. Usa la barra de progreso para moverte.</div></sc-if>
+              <div style="display: flex; flex-direction: column;">
+                <sc-for list="{{ toc }}" as="t" hint-placeholder-count="6">
+                  <button sc-camel-on-click="{{ t.on }}" style="text-align: left; min-height: 48px; padding: 12px 14px 12px {{ t.indent }}; border-radius: 16px; border: 0; background: {{ t.bg }}; color: inherit; cursor: pointer; font-family: inherit; font-size: 15px; line-height: 1.3; font-weight: {{ t.weight }};" style-hover="background: color-mix(in srgb, currentColor 8%, transparent);">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ panelMarks }}" hint-placeholder-val="{{ false }}">
+              <button sc-camel-on-click="{{ addBookmark }}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px 0 14px; border-radius: 999px; border: 0; background: var(--color-accent); color: var(--color-bg); cursor: pointer; font-family: var(--font-heading); font-size: 14px; margin-bottom: 16px;">
+                <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path><line x1="12" x2="12" y1="7" y2="13"></line><line x1="15" x2="9" y1="10" y2="10"></line></svg>Marcar esta página
+              </button>
+              <sc-if value="{{ marksEmpty }}" hint-placeholder-val="{{ false }}"><div style="opacity: 0.6; font-size: 14px;">Sin marcadores todavía. Marca una página y añade una nota si quieres.</div></sc-if>
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <sc-for list="{{ marks }}" as="m" hint-placeholder-count="2">
+                  <div style="border-radius: 20px; padding: 14px 14px 10px; background: color-mix(in srgb, currentColor 6%, transparent); display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: flex-start; gap: 8px;">
+                      <button sc-camel-on-click="{{ m.go }}" style="flex: 1; text-align: left; border: 0; background: transparent; color: inherit; cursor: pointer; font-family: inherit; padding: 0; min-height: 44px;">
+                        <div style="font-family: var(--font-heading); font-size: 15px; line-height: 1.25;">{{ m.title }}</div>
+                        <div style="font-size: 12px; opacity: 0.6; margin-top: 2px;">{{ m.meta }}</div>
+                      </button>
+                      <button aria-label="Eliminar marcador" sc-camel-on-click="{{ m.remove }}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: inherit; opacity: 0.7; display: grid; place-items: center; cursor: pointer; flex: none;" style-hover="background: color-mix(in srgb, currentColor 10%, transparent);"><svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg></button>
+                    </div>
+                    <textarea value="{{ m.note }}" sc-camel-on-change="{{ m.onNote }}" placeholder="Escribe una nota…" rows="2" style="width: 100%; resize: vertical; font: inherit; font-size: 14px; line-height: 1.45; padding: 10px 12px; border-radius: 14px; border: 1.5px solid color-mix(in srgb, currentColor 18%, transparent); background: transparent; color: inherit;"></textarea>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ panelSearch }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+                <input type="search" value="{{ query }}" sc-camel-on-change="{{ onQuery }}" sc-camel-on-key-down="{{ onQueryKey }}" placeholder="Buscar en el libro…" sc-camel-auto-focus="{{ true }}" style="flex: 1; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, currentColor 22%, transparent); background: transparent; color: inherit; font: inherit; font-size: 15px;">
+                <button sc-camel-on-click="{{ runSearch }}" style="width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--color-accent); color: var(--color-bg); display: grid; place-items: center; cursor: pointer; flex: none;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></button>
+              </div>
+              <div style="font-size: 12px; opacity: 0.6; margin-bottom: 10px;">{{ searchStatus }}</div>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+                  <button sc-camel-on-click="{{ r.go }}" style="text-align: left; padding: 10px 14px; border-radius: 16px; border: 0; background: transparent; color: inherit; cursor: pointer; font-family: inherit; min-height: 44px;" style-hover="background: color-mix(in srgb, currentColor 8%, transparent);">
+                    <div style="font-size: 11px; opacity: 0.6; margin-bottom: 2px;">{{ r.chapter }}</div>
+                    <div style="font-size: 14px; line-height: 1.4;">{{ r.pre }}<strong style="color: var(--color-accent-500);">{{ r.hit }}</strong>{{ r.post }}</div>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="position: absolute; inset: 0; z-index: 30; pointer-events: none; background: rgba(0, 0, 0, {{ dim }});"></div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;tapZones&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Lectura&quot;}}">
+const KEY = 'hoja:';
+const FONTS = [
+  { id: 'literata', label: 'Literata', css: '"Literata", Georgia, serif' },
+  { id: 'figtree', label: 'Figtree', css: '"Figtree", system-ui, sans-serif' },
+  { id: 'georgia', label: 'Georgia', css: 'Georgia, "Times New Roman", serif' },
+  { id: 'system', label: 'Sistema', css: 'system-ui, -apple-system, sans-serif' },
+];
+const THEMES = {
+  claro: { label: 'Claro', bg: '#f9f4ed', fg: '#201e1d', surface: '#eee7db' },
+  sepia: { label: 'Sepia', bg: '#f5ead8', fg: '#402310', surface: '#ebddc5' },
+  oscuro: { label: 'Oscuro', bg: '#2e2b25', fg: '#eee7db', surface: '#474238' },
+};
+const DEFAULTS = { theme: 'sepia', font: 'literata', fontSize: 18, lineHeight: 1.6, margin: 24, colWidth: 720, align: 'left', mode: 'paged', brightness: 100 };
+const MIME = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', gif: 'image/gif', svg: 'image/svg+xml', webp: 'image/webp', css: 'text/css', ttf: 'font/ttf', otf: 'font/otf', woff: 'font/woff', woff2: 'font/woff2' };
+const ls = (k, v) => { try { if (v === undefined) { const s = localStorage.getItem(KEY + k); return s ? JSON.parse(s) : null; } localStorage.setItem(KEY + k, JSON.stringify(v)); } catch (e) { return null; } };
+const resolvePath = (base, rel) => { try { return decodeURIComponent(new URL(rel, 'http://x/' + base).pathname.slice(1)); } catch (e) { return rel; } };
+const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const parseXml = (s) => new DOMParser().parseFromString(s, 'application/xml');
+const tag = (doc, name) => doc.getElementsByTagNameNS('*', name);
+
+class Component extends DCLogic {
+  state = {
+    view: 'library', books: [], importing: false, importLabel: '', error: '',
+    book: null, chapterIdx: 0, html: '', loading: false, chrome: true, panel: null,
+    settings: Object.assign({}, DEFAULTS, ls('settings') || {}),
+    marks: [], query: '', results: [], searchStatus: '', page: 1, pages: 1, frac: 0, vw: 0,
+  };
+  scrollRef = React.createRef(); fileRef = React.createRef(); contentRef = React.createRef();
+  coverUrls = {}; blobCache = new Map(); chapters = []; toc = []; zip = null; pending = null; frac = 0; touch = null;
+
+  componentDidMount() {
+    this.loadBooks();
+    this.onResize = () => { const el = this.scrollRef.current; if (el) { this.pending = this.pending || { frac: this.frac }; this.setState({ vw: el.clientWidth }); } };
+    window.addEventListener('resize', this.onResize);
+    this.onKey = (e) => {
+      if (this.state.view !== 'reader') return;
+      if (e.key === 'Escape') return this.setState({ panel: null });
+      if (this.state.panel || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); this.turn(1); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); this.turn(-1); }
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('keydown', this.onKey); }
+
+  componentDidUpdate() {
+    // El runtime solo pasa prevProps: el estado anterior lo guardamos nosotros.
+    const prev = this._prevState || this.state; this._prevState = this.state;
+    const el = this.scrollRef.current;
+    if (!el) return;
+    if (el.clientWidth !== this.state.vw) { this.setState({ vw: el.clientWidth }); return; }
+    if (prev.settings !== this.state.settings && prev.view === 'reader') this.pending = this.pending || { frac: this.frac };
+    if (this.pending && !this.state.loading && !this.applying) {
+      this.applying = true;
+      const p = this.pending; let tries = 0;
+      const tick = () => {
+        const sc = this.scrollRef.current, c = this.contentRef.current;
+        const paged = this.state.settings.mode === 'paged';
+        const ready = sc && c && c.innerHTML.length > 0 && (paged ? sc.scrollWidth > sc.clientWidth || tries > 12 : sc.scrollHeight > 0);
+        if (!ready && tries++ < 30) return requestAnimationFrame(tick);
+        this.pending = null; this.applying = false;
+        this.applyPending(p);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
+
+  // ── storage ──
+  db() { return new Promise((res, rej) => { const r = indexedDB.open('hoja-epub', 1); r.onupgradeneeded = () => r.result.createObjectStore('books', { keyPath: 'id' }); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+  async dbAll() { const d = await this.db(); return new Promise((res, rej) => { const r = d.transaction('books').objectStore('books').getAll(); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+  async dbPut(b) { const d = await this.db(); return new Promise((res, rej) => { const t = d.transaction('books', 'readwrite'); t.objectStore('books').put(b); t.oncomplete = res; t.onerror = () => rej(t.error); }); }
+  async dbDel(id) { const d = await this.db(); return new Promise((res, rej) => { const t = d.transaction('books', 'readwrite'); t.objectStore('books').delete(id); t.oncomplete = res; t.onerror = () => rej(t.error); }); }
+
+  async loadBooks() {
+    try {
+      const books = (await this.dbAll()).sort((a, b) => (ls('prog:' + b.id)?.at || b.added) - (ls('prog:' + a.id)?.at || a.added));
+      books.forEach(b => { if (b.cover && !this.coverUrls[b.id]) this.coverUrls[b.id] = URL.createObjectURL(b.cover); });
+      this.setState({ books });
+    } catch (e) { this.setState({ error: 'No se pudo abrir el almacenamiento local.' }); }
+  }
+
+  // ── EPUB parsing ──
+  async parseOpf(zip) {
+    const cx = await zip.file('META-INF/container.xml').async('string');
+    const opfPath = tag(parseXml(cx), 'rootfile')[0].getAttribute('full-path');
+    const dir = opfPath.includes('/') ? opfPath.slice(0, opfPath.lastIndexOf('/') + 1) : '';
+    const opf = parseXml(await zip.file(opfPath).async('string'));
+    const title = tag(opf, 'title')[0]?.textContent.trim();
+    const author = tag(opf, 'creator')[0]?.textContent.trim();
+    const manifest = {};
+    for (const it of tag(opf, 'item')) manifest[it.getAttribute('id')] = { href: resolvePath(dir, it.getAttribute('href')), type: it.getAttribute('media-type') || '', props: it.getAttribute('properties') || '' };
+    const spine = [];
+    for (const ref of tag(opf, 'itemref')) { const m = manifest[ref.getAttribute('idref')]; if (m && /html|xml/.test(m.type) && ref.getAttribute('linear') !== 'no') spine.push(m.href); }
+    let coverId = null;
+    for (const m of tag(opf, 'meta')) if (m.getAttribute('name') === 'cover') coverId = m.getAttribute('content');
+    let cover = coverId && manifest[coverId] ? manifest[coverId].href : Object.values(manifest).find(m => m.props.includes('cover-image'))?.href;
+    if (!cover) cover = Object.values(manifest).find(m => m.type.startsWith('image/') && /cover/i.test(m.href))?.href;
+    const nav = Object.values(manifest).find(m => m.props.includes('nav'))?.href;
+    const spineEl = tag(opf, 'spine')[0];
+    const ncx = spineEl && manifest[spineEl.getAttribute('toc')]?.href || Object.values(manifest).find(m => m.type.includes('ncx'))?.href;
+    return { title, author, spine, cover, nav, ncx };
+  }
+
+  async parseToc(zip, meta, chapters) {
+    const idxOf = (href, base) => { const full = resolvePath(base, href.split('#')[0]); const i = chapters.indexOf(full); return { idx: i, anchor: href.split('#')[1] || null }; };
+    const out = [];
+    try {
+      if (meta.nav && zip.file(meta.nav)) {
+        const doc = new DOMParser().parseFromString(await zip.file(meta.nav).async('string'), 'text/html');
+        const navs = [...doc.querySelectorAll('nav')];
+        const nav = navs.find(n => (n.getAttribute('epub:type') || '').includes('toc')) || navs[0];
+        if (nav) nav.querySelectorAll('a[href]').forEach(a => { let d = 0, p = a.parentElement; while (p && p !== nav) { if (p.tagName === 'OL' || p.tagName === 'UL') d++; p = p.parentElement; } const r = idxOf(a.getAttribute('href'), meta.nav); out.push({ label: a.textContent.trim(), depth: Math.max(0, d - 1), idx: r.idx, anchor: r.anchor }); });
+      }
+      if (!out.length && meta.ncx && zip.file(meta.ncx)) {
+        const doc = parseXml(await zip.file(meta.ncx).async('string'));
+        const walk = (el, d) => { for (const np of el.children) { if (np.localName !== 'navPoint') continue; const label = tag(np, 'text')[0]?.textContent.trim() || ''; const src = tag(np, 'content')[0]?.getAttribute('src') || ''; const r = idxOf(src, meta.ncx); out.push({ label, depth: d, idx: r.idx, anchor: r.anchor }); walk(np, d + 1); } };
+        const map = tag(doc, 'navMap')[0]; if (map) walk(map, 0);
+      }
+    } catch (e) { /* toc optional */ }
+    return out.filter(t => t.idx >= 0 && t.label);
+  }
+
+  pickFiles = () => this.fileRef.current && this.fileRef.current.click();
+  loadSample = async () => {
+    try { const blob = await (await fetch('samples/muestra.zip')).blob(); await this.importFiles([new File([blob], 'Las hojas del nogal.epub', { type: 'application/epub+zip' })]); }
+    catch (e) { this.setState({ error: 'No se pudo cargar el libro de muestra.' }); }
+  };
+  onFiles = (e) => { const files = [...e.target.files]; e.target.value = ''; this.importFiles(files); };
+  async importFiles(files) {
+    for (const f of files) {
+      this.setState({ importing: true, importLabel: f.name, error: '' });
+      try {
+        const zip = await JSZip.loadAsync(f);
+        const meta = await this.parseOpf(zip);
+        let cover = null;
+        if (meta.cover && zip.file(meta.cover)) cover = await zip.file(meta.cover).async('blob');
+        const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        await this.dbPut({ id, title: meta.title || f.name.replace(/\.epub$/i, ''), author: meta.author || 'Autor desconocido', cover, file: f, spineCount: meta.spine.length, added: Date.now() });
+      } catch (err) { console.error(err); this.setState({ error: 'No se pudo leer "' + f.name + '". ¿Es un EPUB válido?' }); }
+    }
+    this.setState({ importing: false });
+    this.loadBooks();
+  }
+
+  removeBook = async (b, e) => {
+    e.stopPropagation();
+    if (!confirm('¿Eliminar "' + b.title + '" de la biblioteca?')) return;
+    await this.dbDel(b.id); this.loadBooks();
+  };
+
+  // ── open / render ──
+  async openBook(b) {
+    this.setState({ view: 'reader', book: b, loading: true, chrome: true, panel: null, html: '', marks: ls('marks:' + b.id) || [] });
+    try {
+      this.zip = await JSZip.loadAsync(b.file);
+      const meta = await this.parseOpf(this.zip);
+      this.chapters = meta.spine;
+      this.toc = await this.parseToc(this.zip, meta, this.chapters);
+      this.blobCache.forEach(u => URL.revokeObjectURL(u)); this.blobCache = new Map();
+      const prog = ls('prog:' + b.id) || { chapter: 0, frac: 0 };
+      await this.goTo(Math.min(prog.chapter, this.chapters.length - 1), { frac: prog.frac || 0 });
+    } catch (err) { console.error(err); this.setState({ view: 'library', error: 'No se pudo abrir el libro.', loading: false }); }
+  }
+
+  async blobUrl(path) {
+    if (this.blobCache.has(path)) return this.blobCache.get(path);
+    const f = this.zip.file(path) || this.zip.file(encodeURI(path)); if (!f) return '';
+    const ext = path.split('.').pop().toLowerCase();
+    const url = URL.createObjectURL(new Blob([await f.async('arraybuffer')], { type: MIME[ext] || 'application/octet-stream' }));
+    this.blobCache.set(path, url); return url;
+  }
+
+  async renderChapter(idx) {
+    const href = this.chapters[idx]; const file = this.zip.file(href); if (!file) return '';
+    const raw = await file.async('string');
+    let doc = new DOMParser().parseFromString(raw, 'application/xhtml+xml');
+    if (doc.querySelector('parsererror')) doc = new DOMParser().parseFromString(raw, 'text/html');
+    const body = doc.body || doc.documentElement;
+    body.querySelectorAll('script, style, link, meta, title').forEach(n => n.remove());
+    const base = href;
+    const jobs = [];
+    body.querySelectorAll('img, image, source, video, audio').forEach(el => {
+      const attr = el.hasAttribute('src') ? 'src' : el.hasAttribute('xlink:href') ? 'xlink:href' : el.hasAttribute('href') ? 'href' : null; if (!attr) return;
+      const v = el.getAttribute(attr); if (/^(data:|https?:)/.test(v)) return;
+      jobs.push(this.blobUrl(resolvePath(base, v)).then(u => { if (u) el.setAttribute(attr, u); }));
+    });
+    body.querySelectorAll('a[href]').forEach(a => {
+      const v = a.getAttribute('href');
+      if (/^(https?:|mailto:)/.test(v)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener'); return; }
+      const [p, hash] = v.split('#');
+      a.setAttribute('data-int', (p ? resolvePath(base, p) : base) + (hash ? '#' + hash : ''));
+      a.removeAttribute('href');
+    });
+    await Promise.all(jobs);
+    return body.innerHTML;
+  }
+
+  async goTo(idx, opts = {}) {
+    if (idx < 0 || idx >= this.chapters.length) return;
+    this.setState({ loading: true, panel: null });
+    const html = await this.renderChapter(idx);
+    this.settle = null;
+    this.pending = { frac: opts.frac ?? 0, anchor: opts.anchor || null, highlight: opts.highlight || null };
+    this.frac = this.pending.frac;
+    this.setState({ chapterIdx: idx, html, loading: false });
+  }
+
+  applyPending(p) {
+    const sc = this.scrollRef.current, content = this.contentRef.current; if (!sc || !content) return;
+    if (p.highlight) {
+      const re = new RegExp(esc(p.highlight), 'gi');
+      const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT); const nodes = [];
+      while (walker.nextNode()) if (re.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+      nodes.forEach(n => { const span = document.createElement('span'); span.innerHTML = n.nodeValue.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])).replace(re, m => '<mark>' + m + '</mark>'); n.parentNode.replaceChild(span, n); });
+    }
+    const paged = this.state.settings.mode === 'paged';
+    const vw = sc.clientWidth || 1;
+    let target = null;
+    if (p.anchor) target = content.querySelector('#' + CSS.escape(p.anchor)) || content.querySelector('[name="' + p.anchor + '"]');
+    if (p.highlight && !target) target = content.querySelector('mark');
+    if (paged) {
+      const pages = Math.max(1, Math.round(sc.scrollWidth / vw));
+      let page;
+      if (target) { const r = target.getBoundingClientRect(), s = sc.getBoundingClientRect(); page = Math.floor((r.left - s.left + sc.scrollLeft) / vw); }
+      else page = Math.min(pages - 1, Math.round(p.frac * (pages - 1)));
+      page = Math.max(0, Math.min(pages - 1, page));
+      this.frac = pages > 1 ? page / (pages - 1) : 0;
+      const apply = () => { const el = this.scrollRef.current; if (!el) return; const w = el.clientWidth || 1; if (Math.round(el.scrollLeft / w) !== page) el.scrollLeft = page * w; };
+      apply();
+      this.settle = { page };
+      requestAnimationFrame(() => { apply(); requestAnimationFrame(apply); });
+      setTimeout(apply, 120);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (this.settle && this.settle.page === page) apply(); });
+      this.setState({ page: page + 1, pages });
+      this.saveProgress(); return;
+    } else {
+      const max = sc.scrollHeight - sc.clientHeight;
+      if (target) { const r = target.getBoundingClientRect(), s = sc.getBoundingClientRect(); sc.scrollTop = r.top - s.top + sc.scrollTop - 80; }
+      else sc.scrollTop = p.frac * max;
+      this.frac = max > 0 ? sc.scrollTop / max : 0;
+      this.setState({ page: 1, pages: 1 });
+    }
+    this.saveProgress();
+  }
+
+  onScroll = () => {
+    const sc = this.scrollRef.current; if (!sc || this.state.loading || this.pending) return;
+    const paged = this.state.settings.mode === 'paged';
+    if (paged) {
+      const vw = sc.clientWidth || 1; const pages = Math.max(1, Math.round(sc.scrollWidth / vw)); const page = Math.round(sc.scrollLeft / vw);
+      if (this.settle) { if (page === this.settle.page) this.settle = null; else return; }
+      this.frac = pages > 1 ? page / (pages - 1) : 0;
+      if (page + 1 !== this.state.page || pages !== this.state.pages) this.setState({ page: page + 1, pages });
+    } else {
+      const max = sc.scrollHeight - sc.clientHeight; this.frac = max > 0 ? sc.scrollTop / max : 0;
+      if (Math.abs(this.frac - this.state.frac) > 0.01) this.setState({ frac: this.frac });
+    }
+    clearTimeout(this.saveT); this.saveT = setTimeout(this.saveProgress, 400);
+  };
+  saveProgress = () => { const b = this.state.book; if (!b) return; ls('prog:' + b.id, { chapter: this.state.chapterIdx, frac: this.frac, at: Date.now() }); };
+
+  turn(dir) {
+    const sc = this.scrollRef.current; if (!sc) return;
+    const paged = this.state.settings.mode === 'paged';
+    if (paged) {
+      const vw = sc.clientWidth || 1; const pages = Math.max(1, Math.round(sc.scrollWidth / vw)); const page = Math.round(sc.scrollLeft / vw) + dir;
+      if (page < 0) return this.goTo(this.state.chapterIdx - 1, { frac: 1 });
+      if (page >= pages) return this.goTo(this.state.chapterIdx + 1, { frac: 0 });
+      this.settle = null; sc.scrollLeft = page * vw;
+      this.frac = pages > 1 ? page / (pages - 1) : 0;
+      this.setState({ page: page + 1, pages, chrome: false }); this.saveProgress();
+      return;
+    } else {
+      const step = sc.clientHeight - 90;
+      if (dir > 0 && sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 4) return this.goTo(this.state.chapterIdx + 1, { frac: 0 });
+      if (dir < 0 && sc.scrollTop <= 0) return this.goTo(this.state.chapterIdx - 1, { frac: 1 });
+      sc.scrollTop += dir * step;
+    }
+    if (this.state.chrome) this.setState({ chrome: false });
+  }
+  prevPage = (e) => { e.stopPropagation(); this.turn(-1); };
+  nextPage = (e) => { e.stopPropagation(); this.turn(1); };
+  nextChapter = (e) => { e.stopPropagation(); this.goTo(this.state.chapterIdx + 1, { frac: 0 }); };
+
+  onContentClick = (e) => {
+    const a = e.target.closest && e.target.closest('a[data-int]');
+    if (a) { e.preventDefault(); const [p, hash] = a.getAttribute('data-int').split('#'); const i = this.chapters.indexOf(p); if (i >= 0) this.goTo(i, { anchor: hash }); return; }
+    if (e.target.closest && e.target.closest('button')) return;
+    if (this.touchMoved) { this.touchMoved = false; return; }
+    const sc = this.scrollRef.current; const r = sc.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width;
+    const zones = (this.props.tapZones ?? true) && this.state.settings.mode === 'paged';
+    if (zones && x < 0.28) return this.turn(-1);
+    if (zones && x > 0.72) return this.turn(1);
+    this.setState({ chrome: !this.state.chrome });
+  };
+  onTouchStart = (e) => { const t = e.touches[0]; this.touch = { x: t.clientX, y: t.clientY, t: Date.now() }; this.touchMoved = false; };
+  onTouchEnd = (e) => {
+    if (!this.touch) return; const t = e.changedTouches[0]; const dx = t.clientX - this.touch.x, dy = t.clientY - this.touch.y;
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) this.touchMoved = true;
+    if (this.state.settings.mode === 'paged' && Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) { this.turn(dx < 0 ? 1 : -1); }
+    this.touch = null;
+  };
+
+  onSeek = (e) => {
+    e.stopPropagation(); const v = +e.target.value / 1000; const n = this.chapters.length;
+    const idx = Math.min(n - 1, Math.floor(v * n)); const frac = v * n - idx;
+    if (idx === this.state.chapterIdx) { this.pending = { frac }; this.frac = frac; this.forceUpdate(); } else this.goTo(idx, { frac });
+  };
+
+  closeBook = () => { this.saveProgress(); this.setState({ view: 'reader' === this.state.view ? 'library' : 'library', book: null, html: '', panel: null }); this.loadBooks(); };
+
+  setSetting(k, v) { const settings = Object.assign({}, this.state.settings, { [k]: v }); ls('settings', settings); this.setState({ settings }); }
+
+  // ── bookmarks / search ──
+  addBookmark = (e) => {
+    e && e.stopPropagation();
+    const b = this.state.book; if (!b) return;
+    const existing = this.state.marks.find(m => m.chapter === this.state.chapterIdx && Math.abs(m.frac - this.frac) < 0.02);
+    let marks;
+    if (existing) marks = this.state.marks.filter(m => m !== existing);
+    else marks = [{ id: Date.now(), chapter: this.state.chapterIdx, frac: this.frac, page: this.state.page, pages: this.state.pages, title: this.chapterTitle(this.state.chapterIdx), note: '', at: Date.now() }, ...this.state.marks];
+    ls('marks:' + b.id, marks); this.setState({ marks });
+  };
+  updateMarks(marks) { ls('marks:' + this.state.book.id, marks); this.setState({ marks }); }
+
+  chapterTitle(idx) { const t = this.toc.find(t => t.idx === idx); if (t) return t.label; const prev = [...this.toc].reverse().find(t => t.idx < idx); return prev ? prev.label : 'Sección ' + (idx + 1); }
+
+  runSearch = async () => {
+    const q = this.state.query.trim(); if (q.length < 2) return this.setState({ results: [], searchStatus: 'Escribe al menos 2 letras.' });
+    this.setState({ searchStatus: 'Buscando…', results: [] });
+    const re = new RegExp(esc(q), 'gi'); const results = [];
+    for (let i = 0; i < this.chapters.length && results.length < 150; i++) {
+      const f = this.zip.file(this.chapters[i]); if (!f) continue;
+      const doc = new DOMParser().parseFromString(await f.async('string'), 'text/html');
+      const text = (doc.body ? doc.body.textContent : '').replace(/\s+/g, ' ');
+      let m; re.lastIndex = 0;
+      while ((m = re.exec(text)) && results.length < 150) results.push({ chapter: i, pre: '…' + text.slice(Math.max(0, m.index - 50), m.index), hit: m[0], post: text.slice(m.index + m[0].length, m.index + m[0].length + 60) + '…' });
+    }
+    this.setState({ results, searchStatus: results.length ? results.length + (results.length >= 150 ? '+' : '') + ' resultados para “' + q + '”' : 'Sin resultados para “' + q + '”' });
+  };
+
+  renderVals() {
+    const s = this.state, st = s.settings, th = THEMES[st.theme] || THEMES.sepia;
+    const font = FONTS.find(f => f.id === st.font) || FONTS[0];
+    const inReader = s.view === 'reader', paged = st.mode === 'paged';
+    const pct = (b) => { const p = ls('prog:' + b.id); return b.spineCount && p ? Math.min(100, Math.round(((p.chapter || 0) + (p.frac || 0)) / b.spineCount * 100)) : 0; };
+    const mkBook = (b) => ({ id: b.id, title: b.title, author: b.author, hasCover: !!this.coverUrls[b.id], noCover: !this.coverUrls[b.id], coverCss: this.coverUrls[b.id] ? 'url("' + this.coverUrls[b.id] + '")' : 'none', initial: (b.title || '?')[0].toUpperCase(), pctW: pct(b) + '%', pctLabel: pct(b) ? pct(b) + '% leído' : 'Sin empezar', open: () => this.openBook(b), remove: (e) => this.removeBook(b, e) });
+    const books = s.books.map(mkBook);
+    const lastRaw = s.books.find(b => ls('prog:' + b.id));
+    const last = lastRaw ? mkBook(lastRaw) : {};
+    const vw = s.vw || 360, m = st.margin;
+    const innerStyle = paged
+      ? `height: 100%; padding: 56px ${m}px 36px; column-width: ${vw - 2 * m}px; column-gap: ${2 * m}px; column-fill: auto; box-sizing: border-box;`
+      : `padding: 72px ${m}px 120px; box-sizing: border-box;`;
+    const chip = (sel) => ({ bg: sel ? 'var(--color-accent)' : 'transparent', fg: sel ? 'var(--color-bg)' : 'inherit', border: sel ? 'var(--color-accent)' : 'color-mix(in srgb, currentColor 22%, transparent)' });
+    const step = (label, key, min, max, inc, fmt) => ({ label, value: fmt ? fmt(st[key]) : st[key], dec: () => this.setSetting(key, Math.max(min, +(st[key] - inc).toFixed(2))), inc: () => this.setSetting(key, Math.min(max, +(st[key] + inc).toFixed(2))) });
+    const n = this.chapters.length || 1;
+    const isMarked = s.marks.some(mk => mk.chapter === s.chapterIdx && Math.abs(mk.frac - this.frac) < 0.02);
+    const overall = Math.round((s.chapterIdx + Math.min(1, this.frac)) / n * 100);
+    if (this._htmlMemo !== s.html) { this._htmlMemo = s.html; this._contentEl = React.createElement('div', { key: 'c' + s.chapterIdx, ref: this.contentRef, dangerouslySetInnerHTML: { __html: s.html } }); }
+    const contentEl = this._contentEl;
+    return {
+      inLibrary: !inReader, inReader, books, hasBooks: books.length > 0, isEmpty: !s.importing && books.length === 0,
+      countLabel: books.length === 1 ? '1 libro' : books.length + ' libros',
+      importing: s.importing, importLabel: s.importLabel, hasError: !!s.error, error: s.error,
+      hasLast: !!lastRaw && !inReader, last, pickFiles: this.pickFiles, loadSample: this.loadSample, onFiles: this.onFiles, fileRef: this.fileRef,
+      rBg: th.bg, rFg: th.fg, rSurface: th.surface, scrollRef: this.scrollRef, onScroll: this.onScroll, onContentClick: this.onContentClick, onTouchStart: this.onTouchStart, onTouchEnd: this.onTouchEnd,
+      colMax: st.colWidth + 'px', oy: paged ? 'hidden' : 'auto', innerStyle, contentEl,
+      fontPx: st.fontSize + 'px', fontCss: font.css, lineH: String(st.lineHeight), align: st.align === 'justify' ? 'justify' : 'left',
+      showNextBtn: !paged && !s.loading && s.chapterIdx < this.chapters.length - 1, nextChapter: this.nextChapter, loading: s.loading,
+      pageLabel: s.loading ? '' : paged ? `${s.page} / ${s.pages} · ${overall}%` : `${overall}%`,
+      topT: s.chrome ? 'translateY(0)' : 'translateY(-110%)', botT: s.chrome ? 'translateY(0)' : 'translateY(110%)',
+      bookTitle: s.book ? s.book.title : '', chapterTitle: this.chapters.length ? this.chapterTitle(s.chapterIdx) : '', closeBook: this.closeBook,
+      addBookmark: this.addBookmark, markColor: isMarked ? 'var(--color-accent)' : 'inherit', markFill: isMarked ? 'currentColor' : 'none',
+      prevPage: this.prevPage, nextPage: this.nextPage, progressVal: Math.round((s.chapterIdx + Math.min(1, this.frac)) / n * 1000), onSeek: this.onSeek,
+      openToc: () => this.setState({ panel: 'toc' }), openMarks: () => this.setState({ panel: 'marks' }), openSearch: () => this.setState({ panel: 'search' }), openSettings: () => this.setState({ panel: 'settings' }),
+      panelOpen: !!s.panel, closePanel: () => this.setState({ panel: null }),
+      panelTitle: { settings: 'Ajustes de lectura', toc: 'Índice', marks: 'Marcadores', search: 'Buscar' }[s.panel] || '',
+      panelSettings: s.panel === 'settings', panelToc: s.panel === 'toc', panelMarks: s.panel === 'marks', panelSearch: s.panel === 'search',
+      themeOpts: Object.entries(THEMES).map(([id, t]) => ({ label: t.label, bg: t.bg, fg: t.fg, border: st.theme === id ? 'var(--color-accent)' : 'color-mix(in srgb, currentColor 18%, transparent)', on: () => this.setSetting('theme', id) })),
+      fontOpts: FONTS.map(f => Object.assign({ label: f.label, css: f.css, on: () => this.setSetting('font', f.id) }, chip(st.font === f.id))),
+      steppers: [step('Tamaño de letra', 'fontSize', 12, 36, 1, v => v + 'px'), step('Interlineado', 'lineHeight', 1.2, 2.4, 0.1, v => v.toFixed(1)), step('Márgenes', 'margin', 8, 72, 4, v => v + 'px'), step('Ancho de columna', 'colWidth', 420, 1200, 40, v => v + 'px')],
+      alignOpts: [{ id: 'left', label: 'Izquierda' }, { id: 'justify', label: 'Justificado' }].map(o => Object.assign({ label: o.label, on: () => this.setSetting('align', o.id) }, chip(st.align === o.id))),
+      modeOpts: [{ id: 'paged', label: 'Paginado' }, { id: 'scroll', label: 'Desplazamiento' }].map(o => Object.assign({ label: o.label, on: () => this.setSetting('mode', o.id) }, chip(st.mode === o.id))),
+      brightness: st.brightness, brightLabel: st.brightness + '%', onBright: (e) => this.setSetting('brightness', +e.target.value), dim: ((100 - st.brightness) / 100 * 0.7).toFixed(2),
+      toc: this.toc.map(t => ({ label: t.label, indent: (14 + t.depth * 18) + 'px', bg: t.idx === s.chapterIdx && !t.anchor ? 'color-mix(in srgb, var(--color-accent) 18%, transparent)' : 'transparent', weight: t.idx === s.chapterIdx ? 600 : 400, on: () => this.goTo(t.idx, { anchor: t.anchor }) })),
+      tocEmpty: this.toc.length === 0,
+      marks: s.marks.map(mk => ({ title: mk.title, note: mk.note, meta: (mk.pages > 1 ? 'Página ' + mk.page + ' de ' + mk.pages + ' · ' : Math.round(mk.frac * 100) + '% · ') + new Date(mk.at).toLocaleDateString('es', { day: 'numeric', month: 'short' }), go: () => this.goTo(mk.chapter, { frac: mk.frac }), remove: () => this.updateMarks(s.marks.filter(x => x !== mk)), onNote: (e) => this.updateMarks(s.marks.map(x => x === mk ? Object.assign({}, x, { note: e.target.value }) : x)) })),
+      marksEmpty: s.marks.length === 0,
+      query: s.query, onQuery: (e) => this.setState({ query: e.target.value }), onQueryKey: (e) => { if (e.key === 'Enter') this.runSearch(); }, runSearch: this.runSearch, searchStatus: s.searchStatus,
+      results: s.results.map(r => ({ chapter: this.chapterTitle(r.chapter), pre: r.pre, hit: r.hit, post: r.post, go: () => this.goTo(r.chapter, { highlight: s.query.trim() }) })),
+    };
+  }
+}
+</script>
+
+
+</body></html>
